@@ -1,4 +1,4 @@
-# warsaw Fans Control
+# warsaw Fan Control
 
 开启 80% 充电保护后，即使有线充电已经暂停，系统仍可能让风扇按极速充电场景运行。此模块能识别停充状态，退出该场景的散热请求。模块还支持息屏散热、按应用调速、狂暴模式、转速上限和实时测速，系统设置与控制中心共用同一风扇模式。
 
@@ -6,7 +6,7 @@
 
 ## 安装和使用
 
-从 v0.4.3 可直接覆盖安装。若从 v0.4.2 或更早版本换装，先记下应用规则和转速上限，再到 LSPosed 停用旧包 `dev.k90fan.control`。Android 将新版识别为独立应用，旧包私有配置需要在新版重新设置。使用自定义转速时，还需在 SukiSU 为新包重新授予 Root。
+已安装 v0.4.3 或后续版本的用户可以直接覆盖升级。若从 v0.4.2 或更早版本换装，先记下应用规则和转速上限，再到 LSPosed 停用旧包 `dev.k90fan.control`。Android 将新版识别为独立应用，旧包私有配置需要在新版重新设置。使用自定义转速时，还需在 SukiSU 为新包重新授予 Root。
 
 1. 从 LSPosed 仓库或下方发布页下载并安装模块 APK。[下载最新版本](https://github.com/Xposed-Modules-Repo/io.github.sonnetoend.warsawfan/releases/latest)
 2. 在 LSPosed 启用新包 `io.github.sonnetoend.warsawfan`，勾选「设置」`com.android.settings`、「电量和性能」`com.miui.powerkeeper` 和「系统界面」`com.android.systemui`。
@@ -33,7 +33,7 @@
 
 - **跟随系统**是新安装的默认值。退出自定义时还原驱动的原始转速表，原厂负责启停和选择档位。80% 停充修正可独立开关。
 - **原厂 1 至 4 档**限制允许的最高档位，实测设备上依次对应 12,000、14,000、16,000 和 19,800 rpm。页面从本机设备树读取各档目标，无法读取时只显示档位。升级会沿用 v0.2 已保存的档位。
-- **自定义**打开 HyperOS 的数字滚轮，在 12,000 至 19,800 rpm 之间每格调整 100 rpm。应用后可点「自定义目标转速」再次编辑。首次使用前，在 SukiSU 中向「warsaw Fans Control」授予 Root。实测使用 Haruhi `6.6.142-android15-8-4k-Haruhi-26w37f` 内核。自定义转速会在加载内置驱动前核对设备、内核版本、内核类型信息和风扇驱动标识。高于上限的档位使用新的目标，较低档位和停转仍由原厂控制。重启后，PowerKeeper 加载模块时会重新应用已保存的上限。
+- **自定义**打开 HyperOS 的数字滚轮，在 12,000 至 19,800 rpm 之间每格调整 100 rpm。应用后可点「自定义目标转速」再次编辑。首次使用前，在 SukiSU 中向「warsaw Fan Control」授予 Root。实测使用 Haruhi `6.6.142-android15-8-4k-Haruhi-26w37f` 内核。自定义转速会在加载内置驱动前核对设备、内核版本、内核类型信息和风扇驱动标识。高于上限的档位使用新的目标，较低档位和停转仍由原厂控制。重启后，PowerKeeper 加载模块时会重新应用已保存的上限。
 
 本机设备树 `/sys/firmware/devicetree/base/soc/xiaomi_fan/duty_speed_map` 中的占空比和目标 rpm 依次为 `(0,0) (51,12000) (65,14000) (73,16000) (98,19800)`。页面的「实时转速」读取 `real_speed`。实机内核日志记录过 20,416 和 20,457 rpm。19,800 rpm 表示四档控制目标，测速值可以超过它。
 
@@ -51,4 +51,4 @@ PowerKeeper 的 `FanStateHandler` 初始化时读取 `IMiCharge.getQuickChargeTy
 
 ## 源码与反馈
 
-模块及内核扩展的源码、构建说明和问题反馈均在开发仓库。[源代码与构建说明](https://github.com/SonnetoEnd/warsaw-Fans-Control#构建) · [反馈问题](https://github.com/SonnetoEnd/warsaw-Fans-Control/issues)
+模块及内核扩展的源码、构建说明和问题反馈均在开发仓库。[源代码与构建说明](https://github.com/SonnetoEnd/warsaw-Fan-Control#构建) · [反馈问题](https://github.com/SonnetoEnd/warsaw-Fan-Control/issues)
